@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  height: 1px;
+  background-image: linear-gradient(
+    to bottom right,
+    #0a285f,
+    #0075be,
+    #d5a100,
+    #ffcc00
+  );
+}
+
+#title {
+  position: relative;
+  font-size: 50px;
+  text-align: center;
+  top: -20%;
+  text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white,
+    1px 1px 0 white;
+}
