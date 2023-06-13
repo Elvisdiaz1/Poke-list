@@ -33,12 +33,15 @@ function placeData() {
   // Need to find a way to only place one copy of each pokemon without
   // having to do document.body.innerHTML for efficieny
   // because the console still places dupes of the pokemon
-  document.body.innerHTML = "";
-  const pokeList = document.createElement("div");
+
+  const pokeList = document.getElementById("test");
+  pokeList.innerHTML = "";
   box.forEach((pokemon) => {
     const pokeSprite = document.createElement("img");
+    pokeSprite.classList.add("sprites");
     pokeSprite.src = pokemon.sprites.front_default;
     pokeList.appendChild(pokeSprite);
+
     document.body.appendChild(pokeList);
   });
 }
