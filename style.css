@@ -1,3 +1,23 @@
+:root {
+  --bugType: #a8b820;
+  --darkType: #705848;
+  --normalType: #a8a878;
+  --fireType: #f08030;
+  --waterType: #6890f0;
+  --electricType: #f8d030;
+  --grassType: #78c850;
+  --flyingType: #a890f0;
+  --steelType: #b8b8d0;
+  --groundType: #e0c068;
+  --poisonType: #a040a0;
+  --iceStyle: #98d8d8;
+  --fightingStyle: #c03028;
+  --psychicType: #f85888;
+  --ghostType: #705898;
+  --dragonType: #7038f8;
+  --fairyType: #f0b6bc;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -26,14 +46,30 @@ body {
 #flexContainer {
   display: flex;
   flex-wrap: wrap;
-  max-width: 50%;
+  max-width: 60%;
   justify-content: space-between;
   position: relative;
-  left: 25%;
+  left: 20%;
+  padding-top: 1%;
+}
+
+.card {
+  padding: 5%;
+  background-color: grey;
+  margin-bottom: 3%;
+  padding-bottom: 2%;
 }
 
 .sprites {
   background-color: white;
-  /* padding: 10%; */
-  margin-bottom: 3%;
+  height: 10.8em;
+}
+
+.name,
+.id,
+.type {
+  display: flex;
+  justify-content: center;
+  padding-top: 15%;
+  font-size: 1.3em;
 }

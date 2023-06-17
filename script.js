@@ -46,9 +46,27 @@ function placeData() {
     pokeSprite.classList.add("sprites");
     pokeSprite.src = pokemon.sprites.front_default;
     card.appendChild(pokeSprite);
+
+    const name = document.createElement("p");
+    name.classList.add("name");
+    name.innerHTML = pokemon.name;
+    card.appendChild(name);
+
+    const type = document.createElement("p");
+    type.classList.add("type");
+    type.innerHTML = pokemon.types.map((type) => type.type.name);
+    if (type.innerHTML.includes("grass")) {
+      type.style.backgroundColor = "green";
+    }
+    card.appendChild(type);
+
+    const id = document.createElement("p");
+    id.classList.add("id");
+    id.innerHTML = `ID: ` + pokemon.id;
+    card.appendChild(id);
   });
 
-  document.body.appendChild(pokeList);
+  document.body.appendChild(flexContainer);
 }
 
 // Place whole thing in flex
