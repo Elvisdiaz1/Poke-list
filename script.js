@@ -34,17 +34,26 @@ function placeData() {
   // having to do document.body.innerHTML for efficieny
   // because the console still places dupes of the pokemon
 
-  const pokeList = document.getElementById("test");
-  pokeList.innerHTML = "";
+  const flexContainer = document.getElementById("flexContainer");
+  flexContainer.innerHTML = ""; // Clear the content of the flexContainer div
+
   box.forEach((pokemon) => {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    flexContainer.appendChild(card);
+
     const pokeSprite = document.createElement("img");
     pokeSprite.classList.add("sprites");
     pokeSprite.src = pokemon.sprites.front_default;
-    pokeList.appendChild(pokeSprite);
-
-    document.body.appendChild(pokeList);
+    card.appendChild(pokeSprite);
   });
+
+  document.body.appendChild(pokeList);
 }
+
+// Place whole thing in flex
+// Place sprites list in card
+// Make card and place all data in card
 
 showPokeData();
 console.log(box);

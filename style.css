@@ -23,11 +23,17 @@ body {
     1px 1px 0 white;
 }
 
-#test {
+#flexContainer {
   display: flex;
   flex-wrap: wrap;
-  max-width: 20%;
+  max-width: 50%;
   justify-content: space-between;
   position: relative;
-  left: 40%;
+  left: 25%;
+}
+
+.sprites {
+  background-color: white;
+  /* padding: 10%; */
+  margin-bottom: 3%;
 }
