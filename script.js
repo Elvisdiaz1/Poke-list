@@ -54,7 +54,10 @@ function placeData() {
 
     const type = document.createElement("p");
     type.classList.add("type");
-    type.innerHTML = pokemon.types.map((type) => type.type.name);
+    let types = pokemon.types.map((type) => type.type.name);
+    typing = types[0].split(" ");
+    type.innerHTML = typing[0];
+
     if (type.innerHTML.includes("grass")) {
       type.style.backgroundColor = "#78c850";
     } else if (type.innerHTML.includes("fire")) {
@@ -96,10 +99,6 @@ function placeData() {
 
   document.body.appendChild(flexContainer);
 }
-
-// Place whole thing in flex
-// Place sprites list in card
-// Make card and place all data in card
 
 showPokeData();
 console.log(box);
