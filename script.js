@@ -59,8 +59,15 @@ function placeData() {
     type1.classList.add("type");
     type2.classList.add("type");
     let types = pokemon.types.map((type) => type.type.name);
-    // typing = types[0].split(" ");
-    // type1.innerHTML = typing[0];
+
+    function setGradient(color1, color2) {
+      card.style.backgroundColor =
+        "linear-gradient(to the bottom right, " +
+        color1.value +
+        ", " +
+        color2.value +
+        ")";
+    }
 
     if (types.length > 1) {
       typing = types[0].split(" ");
@@ -133,72 +140,77 @@ function placeData() {
       type1.style.backgroundColor = "#7038f8";
     } else type1.style.backgroundColor = "#f0b6bc";
 
-    if (types.length > 1) {
-      if (type2.innerHTML.includes("grass")) {
-        type2.style.backgroundColor = "#78c850";
-      } else if (type2.innerHTML.includes("fire")) {
-        type2.style.backgroundColor = "#f08030";
-      } else if (type2.innerHTML.includes("water")) {
-        type2.style.backgroundColor = "#6890f0";
-      } else if (type2.innerHTML.includes("bug")) {
-        type2.style.backgroundColor = "#a8b820";
-      } else if (type2.innerHTML.includes("dark")) {
-        type2.style.backgroundColor = "#705848";
-      } else if (type2.innerHTML.includes("normal")) {
-        type2.style.backgroundColor = "#a8a878";
-      } else if (type2.innerHTML.includes("flying")) {
-        type2.style.backgroundColor = "#a890f0";
-      } else if (type2.innerHTML.includes("steel")) {
-        type2.style.backgroundColor = "#b8b8d0";
-      } else if (type2.innerHTML.includes("ground")) {
-        type2.style.backgroundColor = "#e0c068";
-      } else if (type2.innerHTML.includes("poison")) {
-        type2.style.backgroundColor = "#a040a0";
-      } else if (type2.innerHTML.includes("ice")) {
-        type2.style.backgroundColor = "#98d8d8";
-      } else if (type2.innerHTML.includes("fighting")) {
-        type2.style.backgroundColor = "#c03028";
-      } else if (type2.innerHTML.includes("psychic")) {
-        type2.style.backgroundColor = "#f85888";
-      } else if (type2.innerHTML.includes("ghost")) {
-        type2.style.backgroundColor = "#705898";
-      } else if (type2.innerHTML.includes("dragon")) {
-        type2.style.backgroundColor = "#7038f8";
-      } else type2.style.backgroundColor = "#f0b6bc";
-    } else typing = types[0].split(" ");
-    type1.innerHTML = typing[0];
-
+    let type1Color;
     if (type1.innerHTML.includes("grass")) {
-      card.style.backgroundColor = "#78c850";
+      type1Color = "#78c850";
     } else if (type1.innerHTML.includes("fire")) {
-      card.style.backgroundColor = "#f08030";
+      type1Color = "#f08030";
     } else if (type1.innerHTML.includes("water")) {
-      card.style.backgroundColor = "#6890f0";
+      type1Color = "#6890f0";
     } else if (type1.innerHTML.includes("bug")) {
-      card.style.backgroundColor = "#a8b820";
+      type1Color = "#a8b820";
     } else if (type1.innerHTML.includes("dark")) {
-      card.style.backgroundColor = "#705848";
+      type1Color = "#705848";
     } else if (type1.innerHTML.includes("normal")) {
-      card.style.backgroundColor = "#a8a878";
+      type1Color = "#a8a878";
     } else if (type1.innerHTML.includes("flying")) {
-      card.style.backgroundColor = "#a890f0";
+      type1Color = "#a890f0";
     } else if (type1.innerHTML.includes("steel")) {
-      card.style.backgroundColor = "#b8b8d0";
+      type1Color = "#b8b8d0";
     } else if (type1.innerHTML.includes("ground")) {
-      card.style.backgroundColor = "#e0c068";
+      type1Color = "#e0c068";
     } else if (type1.innerHTML.includes("poison")) {
-      card.style.backgroundColor = "#a040a0";
+      type1Color = "#a040a0";
     } else if (type1.innerHTML.includes("ice")) {
-      card.style.backgroundColor = "#98d8d8";
+      type1Color = "#98d8d8";
     } else if (type1.innerHTML.includes("fighting")) {
-      card.style.backgroundColor = "#c03028";
+      type1Color = "#c03028";
     } else if (type1.innerHTML.includes("psychic")) {
-      card.style.backgroundColor = "#f85888";
+      type1Color = "#f85888";
     } else if (type1.innerHTML.includes("ghost")) {
-      card.style.backgroundColor = "#705898";
+      type1Color = "#705898";
     } else if (type1.innerHTML.includes("dragon")) {
-      card.style.backgroundColor = "#7038f8";
-    } else card.style.backgroundColor = "#f0b6bc";
+      type1Color = "#7038f8";
+    } else type1Color = "#f0b6bc";
+
+    let type2Color;
+    if (type2.innerHTML.includes("grass")) {
+      type2Color = "#78c850";
+    } else if (type2.innerHTML.includes("fire")) {
+      type2Color = "#f08030";
+    } else if (type2.innerHTML.includes("water")) {
+      type2Color = "#6890f0";
+    } else if (type2.innerHTML.includes("bug")) {
+      type2Color = "#a8b820";
+    } else if (type2.innerHTML.includes("dark")) {
+      type2Color = "#705848";
+    } else if (type2.innerHTML.includes("normal")) {
+      type2Color = "#a8a878";
+    } else if (type2.innerHTML.includes("flying")) {
+      type2Color = "#a890f0";
+    } else if (type2.innerHTML.includes("steel")) {
+      type2Color = "#b8b8d0";
+    } else if (type2.innerHTML.includes("ground")) {
+      type2Color = "#e0c068";
+    } else if (type2.innerHTML.includes("poison")) {
+      type2Color = "#a040a0";
+    } else if (type2.innerHTML.includes("ice")) {
+      type2Color = "#98d8d8";
+    } else if (type2.innerHTML.includes("fighting")) {
+      type2Color = "#c03028";
+    } else if (type2.innerHTML.includes("psychic")) {
+      type2Color = "#f85888";
+    } else if (type2.innerHTML.includes("ghost")) {
+      type2Color = "#705898";
+    } else if (type2.innerHTML.includes("dragon")) {
+      type2Color = "#7038f8";
+    } else type2Color = "#f0b6bc";
+
+    if (types.length > 1) {
+      card.style.backgroundImage = `linear-gradient(90deg, ${type1Color} 50%, ${type2Color} 50%)`;
+    } else {
+      card.style.backgroundColor = type1Color;
+    }
 
     typeContainer.appendChild(type1);
     typeContainer.appendChild(type2);
