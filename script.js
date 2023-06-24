@@ -15,6 +15,9 @@ let showPokeData = async () => {
   }
 };
 
+let fireType = "./assets/fire-type.png";
+let grassType = "./assets/grass-type.png";
+
 // function showData(apiData) {
 //   //   let pokeSet = apiData.results.filter((pokemon, index) => {
 //   //     return index < 21;
@@ -53,21 +56,12 @@ function placeData() {
     card.appendChild(name);
 
     const typeContainer = document.createElement("div");
-    const type1 = document.createElement("span");
-    const type2 = document.createElement("span");
+    const type1 = document.createElement("img");
+    const type2 = document.createElement("img");
     typeContainer.classList.add("typeContainer");
     type1.classList.add("type");
     type2.classList.add("type");
     let types = pokemon.types.map((type) => type.type.name);
-
-    function setGradient(color1, color2) {
-      card.style.backgroundColor =
-        "linear-gradient(to the bottom right, " +
-        color1.value +
-        ", " +
-        color2.value +
-        ")";
-    }
 
     if (types.length > 1) {
       typing = types[0].split(" ");
@@ -76,8 +70,8 @@ function placeData() {
       type2.innerHTML = typing2[0];
       if (type2.innerHTML.includes("grass")) {
         type2.style.backgroundColor = "#78c850";
-      } else if (type2.innerHTML.includes("fire")) {
-        type2.style.backgroundColor = "#f08030";
+      } else if (typing2[0].includes("fire")) {
+        type2.style.backgroundImage = "#f08030";
       } else if (type2.innerHTML.includes("water")) {
         type2.style.backgroundColor = "#6890f0";
       } else if (type2.innerHTML.includes("bug")) {
@@ -105,13 +99,14 @@ function placeData() {
       } else if (type2.innerHTML.includes("dragon")) {
         type2.style.backgroundColor = "#7038f8";
       } else type2.style.backgroundColor = "#f0b6bc";
+      //   CHANGE THE SINGLE TYPING FROM HTML TO IMAGE
     } else typing = types[0].split(" ");
     type1.innerHTML = typing[0];
 
-    if (type1.innerHTML.includes("grass")) {
-      type1.style.backgroundColor = "#78c850";
-    } else if (type1.innerHTML.includes("fire")) {
-      type1.style.backgroundColor = "#f08030";
+    if (typing[0].includes("grass")) {
+      type1.src = "./assets/grass-type.png";
+    } else if (typing[0].includes("fire")) {
+      type1.src = "./assets/fire-type.png";
     } else if (type1.innerHTML.includes("water")) {
       type1.style.backgroundColor = "#6890f0";
     } else if (type1.innerHTML.includes("bug")) {
@@ -124,8 +119,8 @@ function placeData() {
       type1.style.backgroundColor = "#a890f0";
     } else if (type1.innerHTML.includes("steel")) {
       type1.style.backgroundColor = "#b8b8d0";
-    } else if (type1.innerHTML.includes("ground")) {
-      type1.style.backgroundColor = "#e0c068";
+    } else if (typing[0].includes("ground")) {
+      type1.src = ".assets/ground-type.png";
     } else if (type1.innerHTML.includes("poison")) {
       type1.style.backgroundColor = "#a040a0";
     } else if (type1.innerHTML.includes("ice")) {
@@ -134,8 +129,8 @@ function placeData() {
       type1.style.backgroundColor = "#c03028";
     } else if (type1.innerHTML.includes("psychic")) {
       type1.style.backgroundColor = "#f85888";
-    } else if (type1.innerHTML.includes("ghost")) {
-      type1.style.backgroundColor = "#705898";
+    } else if (typing[0].includes("ghost")) {
+      type1.src = ".assets/ghost-type.png";
     } else if (type1.innerHTML.includes("dragon")) {
       type1.style.backgroundColor = "#7038f8";
     } else type1.style.backgroundColor = "#f0b6bc";
@@ -143,7 +138,7 @@ function placeData() {
     let type1Color;
     if (type1.innerHTML.includes("grass")) {
       type1Color = "#78c850";
-    } else if (type1.innerHTML.includes("fire")) {
+    } else if (typing[0].includes("fire")) {
       type1Color = "#f08030";
     } else if (type1.innerHTML.includes("water")) {
       type1Color = "#6890f0";

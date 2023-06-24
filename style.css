@@ -38,6 +38,9 @@ body {
   background-color: grey;
   margin-bottom: 3%;
   padding-bottom: 2%;
+  border-color: black;
+  border-width: 2px;
+  border-style: solid;
 }
 
 .sprites {
@@ -53,4 +56,9 @@ body {
   padding-top: 7.5%;
   padding-bottom: 7.5%;
   font-size: 1.3em;
+}
+.type {
+  height: 70px;
+  width: 125px;
+  padding-left: 40px;
 }
