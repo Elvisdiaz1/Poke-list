@@ -136,68 +136,68 @@ function placeData() {
     } else type1.style.backgroundColor = "#f0b6bc";
 
     let type1Color;
-    if (type1.innerHTML.includes("grass")) {
+    if (typing[0].includes("grass")) {
       type1Color = "#78c850";
     } else if (typing[0].includes("fire")) {
       type1Color = "#f08030";
-    } else if (type1.innerHTML.includes("water")) {
+    } else if (typing[0].includes("water")) {
       type1Color = "#6890f0";
-    } else if (type1.innerHTML.includes("bug")) {
+    } else if (typing[0].includes("bug")) {
       type1Color = "#a8b820";
-    } else if (type1.innerHTML.includes("dark")) {
+    } else if (typing[0].includes("dark")) {
       type1Color = "#705848";
-    } else if (type1.innerHTML.includes("normal")) {
+    } else if (typing[0].includes("normal")) {
       type1Color = "#a8a878";
-    } else if (type1.innerHTML.includes("flying")) {
+    } else if (typing[0].includes("flying")) {
       type1Color = "#a890f0";
-    } else if (type1.innerHTML.includes("steel")) {
+    } else if (typing[0].includes("steel")) {
       type1Color = "#b8b8d0";
-    } else if (type1.innerHTML.includes("ground")) {
+    } else if (typing[0].includes("ground")) {
       type1Color = "#e0c068";
-    } else if (type1.innerHTML.includes("poison")) {
+    } else if (typing[0].includes("poison")) {
       type1Color = "#a040a0";
-    } else if (type1.innerHTML.includes("ice")) {
+    } else if (typing[0].includes("ice")) {
       type1Color = "#98d8d8";
-    } else if (type1.innerHTML.includes("fighting")) {
+    } else if (typing[0].includes("fighting")) {
       type1Color = "#c03028";
-    } else if (type1.innerHTML.includes("psychic")) {
+    } else if (typing[0].includes("psychic")) {
       type1Color = "#f85888";
-    } else if (type1.innerHTML.includes("ghost")) {
+    } else if (typing[0].includes("ghost")) {
       type1Color = "#705898";
-    } else if (type1.innerHTML.includes("dragon")) {
+    } else if (typing[0].includes("dragon")) {
       type1Color = "#7038f8";
     } else type1Color = "#f0b6bc";
 
     let type2Color;
-    if (type2.innerHTML.includes("grass")) {
+    if (typing2[0].includes("grass")) {
       type2Color = "#78c850";
-    } else if (type2.innerHTML.includes("fire")) {
+    } else if (typing2[0].includes("fire")) {
       type2Color = "#f08030";
-    } else if (type2.innerHTML.includes("water")) {
+    } else if (typing2[0].includes("water")) {
       type2Color = "#6890f0";
-    } else if (type2.innerHTML.includes("bug")) {
+    } else if (typing2[0].includes("bug")) {
       type2Color = "#a8b820";
-    } else if (type2.innerHTML.includes("dark")) {
+    } else if (typing2[0].includes("dark")) {
       type2Color = "#705848";
-    } else if (type2.innerHTML.includes("normal")) {
+    } else if (typing2[0].includes("normal")) {
       type2Color = "#a8a878";
-    } else if (type2.innerHTML.includes("flying")) {
+    } else if (typing2[0].includes("flying")) {
       type2Color = "#a890f0";
-    } else if (type2.innerHTML.includes("steel")) {
+    } else if (typing2[0].includes("steel")) {
       type2Color = "#b8b8d0";
-    } else if (type2.innerHTML.includes("ground")) {
+    } else if (typing2[0].includes("ground")) {
       type2Color = "#e0c068";
-    } else if (type2.innerHTML.includes("poison")) {
+    } else if (typing2[0].includes("poison")) {
       type2Color = "#a040a0";
-    } else if (type2.innerHTML.includes("ice")) {
+    } else if (typing2[0].includes("ice")) {
       type2Color = "#98d8d8";
-    } else if (type2.innerHTML.includes("fighting")) {
+    } else if (typing2[0].includes("fighting")) {
       type2Color = "#c03028";
-    } else if (type2.innerHTML.includes("psychic")) {
+    } else if (typing2[0].includes("psychic")) {
       type2Color = "#f85888";
-    } else if (type2.innerHTML.includes("ghost")) {
+    } else if (typing2[0].includes("ghost")) {
       type2Color = "#705898";
-    } else if (type2.innerHTML.includes("dragon")) {
+    } else if (typing2[0].includes("dragon")) {
       type2Color = "#7038f8";
     } else type2Color = "#f0b6bc";
 
