@@ -22,31 +22,41 @@ prevButton.addEventListener("click", function () {
     placeData();
   }
 });
-nextButton.addEventListener("click", function () {
-  if (currentPage < maxPage) {
-    currentPage++;
+// nextButton.addEventListener("click", function () {
+//   if (currentPage < maxPage - 1) {
+//     currentPage++;
 
-    console.log("apple");
+//     console.log("apple");
+//     placeData();
+//   }
+// });
+let showPokeData = async (i) => {
+  const api = `https://pokeapi.co/api/v2/pokemon/${i}`;
+  try {
+    const res = await fetch(api);
+    const data = await res.json();
+    console.log(data);
+    //   showData(box);
+    box.add(data);
     placeData();
+  } catch (error) {
+    console.log(error);
   }
-});
-let showPokeData = async () => {
-  let i = 0;
-  while (i < 46) {
-    const api = `https://pokeapi.co/api/v2/pokemon/${i}`;
-    try {
-      const res = await fetch(api);
-      const data = await res.json();
-      console.log(data);
-      //   showData(box);
-      box.add(data);
-      placeData();
-    } catch (error) {
-      console.log(error);
-    }
-    i++;
-  }
+
+  i++;
 };
+let currentIndex = 1;
+const fetchPokeData = async () => {
+  showPokeData(currentIndex);
+};
+nextButton.addEventListener("click", function () {
+  if (currentIndex < 46) {
+    currentIndex++;
+  } else {
+    currentIndex = 1;
+  }
+  fetchPokeData();
+});
 
 function placeData() {
   // Need to find a way to only place one copy of each pokemon without
@@ -87,34 +97,34 @@ function placeData() {
       if (typing2[0].includes("grass")) {
         type2.src = "./assets/grass-type.png";
       } else if (typing2[0].includes("fire")) {
-        type2.style.backgroundImage = "#f08030";
-      } else if (type2.innerHTML.includes("water")) {
-        type2.style.backgroundColor = "#6890f0";
-      } else if (type2.innerHTML.includes("bug")) {
-        type2.style.backgroundColor = "#a8b820";
-      } else if (type2.innerHTML.includes("dark")) {
-        type2.style.backgroundColor = "#705848";
-      } else if (type2.innerHTML.includes("normal")) {
-        type2.style.backgroundColor = "#a8a878";
+        type2.src = "./assets/fire-type.png";
+      } else if (typing2[0].includes("water")) {
+        type2.src = "./assets/water-type.png";
+      } else if (typing2[0].includes("bug")) {
+        type2.src = "./assets/bug-type.png";
+      } else if (typing2[0].includes("dark")) {
+        type2.src = "./assets/dark-type.png";
+      } else if (typing2[0].includes("normal")) {
+        type2.src = "./assets/normal-type.png";
       } else if (typing2[0].includes("flying")) {
         type2.src = "./assets/flying-type.png";
-      } else if (type2.innerHTML.includes("steel")) {
-        type2.style.backgroundColor = "#b8b8d0";
-      } else if (type2.innerHTML.includes("ground")) {
-        type2.style.backgroundColor = "#e0c068";
-      } else if (type2.innerHTML.includes("poison")) {
-        type2.style.backgroundColor = "#a040a0";
-      } else if (type2.innerHTML.includes("ice")) {
-        type2.style.backgroundColor = "#98d8d8";
-      } else if (type2.innerHTML.includes("fighting")) {
-        type2.style.backgroundColor = "#c03028";
-      } else if (type2.innerHTML.includes("psychic")) {
-        type2.style.backgroundColor = "#f85888";
-      } else if (type2.innerHTML.includes("ghost")) {
-        type2.style.backgroundColor = "#705898";
-      } else if (type2.innerHTML.includes("dragon")) {
+      } else if (typing2[0].includes("steel")) {
+        type2.src = "./assets/steel-type.png";
+      } else if (typing2[0].includes("ground")) {
+        type2.src = "./assets/ground-type.png";
+      } else if (typing2[0].includes("poison")) {
+        type2.src = "assets/posion-type.png";
+      } else if (typing2[0].includes("ice")) {
+        type2.src = "assets/ice-type.png";
+      } else if (typing2[0].includes("fighting")) {
+        type2.src = "assets/fighting-type.png";
+      } else if (typing2[0].includes("psychic")) {
+        type2.src = "assets/psy-type.png";
+      } else if (typing2[0].includes("ghost")) {
+        type2.src = "assets/ghost-type.png";
+      } else if (typing2[0].includes("dragon")) {
         type2.style.backgroundColor = "#7038f8";
-      } else type2.style.backgroundColor = "#f0b6bc";
+      } else type2.src = "assets/fairy-type.png";
       //   CHANGE THE SINGLE TYPING FROM HTML TO IMAGE
     } else typing = types[0].split(" ");
     type1.innerHTML = typing[0];
@@ -125,33 +135,33 @@ function placeData() {
       type1.src = "./assets/fire-type.png";
     } else if (typing[0].includes("water")) {
       type1.src = "./assets/water-type.png";
-    } else if (type1.innerHTML.includes("bug")) {
-      type1.style.backgroundColor = "#a8b820";
-    } else if (type1.innerHTML.includes("dark")) {
-      type1.style.backgroundColor = "#705848";
-    } else if (type1.innerHTML.includes("normal")) {
-      type1.style.backgroundColor = "#a8a878";
-    } else if (type1.innerHTML.includes("flying")) {
-      type1.style.backgroundColor = "#a890f0";
+    } else if (typing[0].includes("bug")) {
+      type1.src = "./assets/bug-type.png";
+    } else if (typing[0].includes("dark")) {
+      type1.src = "./assets/dark-type.png";
+    } else if (typing[0].includes("normal")) {
+      type1.src = "./assets/normal-type.png";
+    } else if (typing[0].includes("flying")) {
+      type1.src = "./assets/flying-type.png";
     } else if (typing[0].includes("steel")) {
       type1.src = "./assets/steel-type.png";
     } else if (typing[0].includes("ground")) {
       type1.src = "./assets/ground-type.png";
-    } else if (type1.innerHTML.includes("poison")) {
-      type1.style.backgroundColor = "#a040a0";
-    } else if (type1.innerHTML.includes("ice")) {
-      type1.style.backgroundColor = "#98d8d8";
-    } else if (type1.innerHTML.includes("fighting")) {
-      type1.style.backgroundColor = "#c03028";
+    } else if (typing[0].includes("poison")) {
+      type1.src = "assets/posion-type.png";
+    } else if (typing[0].includes("ice")) {
+      type1.src = "./assets/ice-type.png";
+    } else if (typing[0].includes("fighting")) {
+      type1.src = "./assets/fighting-type.png";
     } else if (typing[0].includes("psychic")) {
       type1.src = "./assets/psy-type.png";
     } else if (typing[0].includes("ghost")) {
       type1.src = "./assets/ghost-type.png";
     } else if (typing[0].includes("rock")) {
       type1.src = "./assets/rock-type.png";
-    } else if (type1.innerHTML.includes("dragon")) {
+    } else if (typing[0].includes("dragon")) {
       type1.style.backgroundColor = "#7038f8";
-    } else type1.style.backgroundColor = "#f0b6bc";
+    } else type1.src = "./assets/fairy-type.png";
 
     let type1Color;
     if (typing[0].includes("grass")) {
@@ -247,5 +257,5 @@ function placeData() {
   document.body.appendChild(buttonContainer);
 }
 
-showPokeData();
+fetchPokeData();
 console.log(box);
