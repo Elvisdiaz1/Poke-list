@@ -46,16 +46,29 @@ let showPokeData = async (i) => {
   i++;
 };
 let currentIndex = 1;
-const fetchPokeData = async () => {
-  showPokeData(currentIndex);
-};
-nextButton.addEventListener("click", function () {
-  if (currentIndex < 46) {
-    currentIndex++;
-  } else {
-    currentIndex = 1;
+
+const fetchPokeData = async (startIndex, endIndex) => {
+  for (let index = startIndex; index <= endIndex; index++) {
+    await showPokeData(index);
   }
-  fetchPokeData();
+};
+
+const initalStartIndex = 1;
+const initalEndIndex = initalStartIndex + 44;
+
+let startIndex = initalEndIndex + 1;
+let endIndex = startIndex + 44;
+
+fetchPokeData(initalStartIndex, initalEndIndex);
+
+nextButton.addEventListener("click", function () {
+  fetchPokeData(startIndex, endIndex);
+  startIndex = endIndex + 1;
+
+  endIndex = startIndex + 44;
+
+  console.log(startIndex);
+  console.log(endIndex);
 });
 
 function placeData() {
