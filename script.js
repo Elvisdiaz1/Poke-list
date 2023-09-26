@@ -1,51 +1,33 @@
-const box = new Set();
+const box = [];
+const removedPokemon = [];
 const buttonContainer = document.getElementById("buttonContainer");
 let prevButton = document.createElement("button");
 prevButton.classList.add("button");
-prevButton.innerText = "Previous";
+prevButton.setAttribute("id", "remove");
+prevButton.innerText = "Remove Pokemon";
 let nextButton = document.createElement("button");
 nextButton.classList.add("button");
-nextButton.innerText = "Next";
+nextButton.innerText = "Add Pokemon";
 let firstButton = document.createElement("button");
 firstButton.classList.add("button");
-firstButton.innerText = "First Page";
+firstButton.innerText = "First Set";
 let lastButton = document.createElement("button");
 lastButton.classList.add("button");
-lastButton.innerText = "Last Page";
+lastButton.innerText = "Last Set";
 
-let currentPage = 0;
-let maxPage = 10;
-prevButton.addEventListener("click", function () {
-  if (currentPage > 0) {
-    currentPage--;
-
-    placeData();
-  }
-});
-// nextButton.addEventListener("click", function () {
-//   if (currentPage < maxPage - 1) {
-//     currentPage++;
-
-//     console.log("apple");
-//     placeData();
-//   }
-// });
 let showPokeData = async (i) => {
   const api = `https://pokeapi.co/api/v2/pokemon/${i}`;
   try {
     const res = await fetch(api);
     const data = await res.json();
     console.log(data);
-    //   showData(box);
-    box.add(data);
+    box.push(data);
+    console.log(box);
     placeData();
   } catch (error) {
     console.log(error);
   }
-
-  i++;
 };
-let currentIndex = 1;
 
 const fetchPokeData = async (startIndex, endIndex) => {
   for (let index = startIndex; index <= endIndex; index++) {
@@ -61,24 +43,62 @@ let endIndex = startIndex + 44;
 
 fetchPokeData(initalStartIndex, initalEndIndex);
 
-nextButton.addEventListener("click", function () {
-  fetchPokeData(startIndex, endIndex);
-  startIndex = endIndex + 1;
+prevButton.disabled = true;
+console.log(box);
 
-  endIndex = startIndex + 44;
+const clearPokemonData = () => {
+  const flexContainer = document.getElementById("flexContainer");
+  flexContainer.innerHTML = "";
+};
 
-  console.log(startIndex);
-  console.log(endIndex);
+prevButton.addEventListener("click", function () {
+  // startIndex = endIndex - 1;
+  // endIndex = startIndex - 44;
+  // if (endIndex <= 1 && startIndex >= 45) {
+  //   prevButton.setAttribute("disabled", "true"); // Disable the "Remove Pokemon" button
+  // }
+  prevButton.removeAttribute("disabled");
+  const startRemoveIndex = box.length - 45;
+  const endRemoveIndex = box.length;
+  const removedSet = box.splice(startRemoveIndex, 45);
+  removedPokemon.push(...removedSet);
+  console.log(box);
+  // removePokemon(box);
+  placeData();
 });
+
+nextButton.addEventListener("click", function () {
+  if (removedPokemon.length > 0) {
+    const removedSet = removedPokemon.splice(0, 45);
+    box.push(...removedSet);
+    placeData();
+  } else {
+    fetchPokeData(startIndex, endIndex);
+    startIndex = endIndex + 1;
+    endIndex = startIndex + 44;
+    console.log(startIndex);
+    console.log(endIndex);
+    console.log(removedPokemon);
+    if (box.length > 45 || box.length === 45) {
+      prevButton.removeAttribute("disabled"); // Disable the "Remove Pokemon" button
+    } else {
+      prevButton.setAttribute("disabled", "true");
+    }
+  }
+});
+
+// function removePokemon(index) {
+//   if (index >= 45) {
+//     document.getElementById("remove").setAttribute("disabled", "true");
+//   }
+// }
 
 function placeData() {
   // Need to find a way to only place one copy of each pokemon without
   // having to do document.body.innerHTML for efficieny
   // because the console still places dupes of the pokemon
 
-  const flexContainer = document.getElementById("flexContainer");
-  flexContainer.innerHTML = ""; // Clear the content of the flexContainer div
-
+  clearPokemonData();
   box.forEach((pokemon) => {
     const card = document.createElement("div");
     card.classList.add("card");
