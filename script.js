@@ -63,35 +63,31 @@ prevButton.addEventListener("click", function () {
   const removedSet = box.splice(startRemoveIndex, 45);
   removedPokemon.push(...removedSet);
   console.log(box);
-  // removePokemon(box);
+
   placeData();
 });
 
 nextButton.addEventListener("click", function () {
   if (removedPokemon.length > 0) {
     const removedSet = removedPokemon.splice(0, 45);
+    box.length = 0;
     box.push(...removedSet);
     placeData();
   } else {
     fetchPokeData(startIndex, endIndex);
+    box.length = 0;
     startIndex = endIndex + 1;
     endIndex = startIndex + 44;
     console.log(startIndex);
     console.log(endIndex);
     console.log(removedPokemon);
-    if (box.length > 45 || box.length === 45) {
-      prevButton.removeAttribute("disabled"); // Disable the "Remove Pokemon" button
-    } else {
-      prevButton.setAttribute("disabled", "true");
-    }
+    // if (box.length === 45) {
+    //   prevButton.removeAttribute("disabled", "false"); // Disable the "Remove Pokemon" button
+    // } else {
+    //   prevButton.setAttribute("disabled", "true");
+    // }
   }
 });
-
-// function removePokemon(index) {
-//   if (index >= 45) {
-//     document.getElementById("remove").setAttribute("disabled", "true");
-//   }
-// }
 
 function placeData() {
   // Need to find a way to only place one copy of each pokemon without
