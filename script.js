@@ -14,6 +14,7 @@ firstButton.innerText = "First Set";
 let lastButton = document.createElement("button");
 lastButton.classList.add("button");
 lastButton.innerText = "Last Set";
+prevButton.disabled = true;
 
 let showPokeData = async (i) => {
   const api = `https://pokeapi.co/api/v2/pokemon/${i}`;
@@ -43,7 +44,6 @@ let endIndex = startIndex + 44;
 
 fetchPokeData(initalStartIndex, initalEndIndex);
 
-prevButton.disabled = true;
 console.log(box);
 
 const clearPokemonData = () => {
@@ -57,36 +57,37 @@ prevButton.addEventListener("click", function () {
   // if (endIndex <= 1 && startIndex >= 45) {
   //   prevButton.setAttribute("disabled", "true"); // Disable the "Remove Pokemon" button
   // }
-  prevButton.removeAttribute("disabled");
+  fetchPokeData(startIndex, endIndex);
+  box.length = 0;
+  startIndex = endIndex - 1;
+  endIndex = startIndex - 44;
+
   const startRemoveIndex = box.length - 45;
   const endRemoveIndex = box.length;
-  const removedSet = box.splice(startRemoveIndex, 45);
+  const removedSet = box.splice(startIndex, 45);
   removedPokemon.push(...removedSet);
+
   console.log(box);
+  console.log("This is the removed set" + removedSet);
 
   placeData();
 });
 
-nextButton.addEventListener("click", function () {
-  if (removedPokemon.length > 0) {
-    const removedSet = removedPokemon.splice(0, 45);
-    box.length = 0;
-    box.push(...removedSet);
-    placeData();
+nextButton.addEventListener("click", async function () {
+  await fetchPokeData(startIndex, endIndex);
+  box.length = 0;
+  startIndex = endIndex + 1;
+  endIndex = startIndex + 44;
+
+  // Toggles "Previous Button" off if Pokemon ID:1 is in the array
+  const hasPokemonID1 = box.some((pokemon) => pokemon.id === 1);
+  if (hasPokemonID1) {
+    prevButton.setAttribute("disabled", "true"); // Disable the "Remove Pokemon" button
   } else {
-    fetchPokeData(startIndex, endIndex);
-    box.length = 0;
-    startIndex = endIndex + 1;
-    endIndex = startIndex + 44;
-    console.log(startIndex);
-    console.log(endIndex);
-    console.log(removedPokemon);
-    // if (box.length === 45) {
-    //   prevButton.removeAttribute("disabled", "false"); // Disable the "Remove Pokemon" button
-    // } else {
-    //   prevButton.setAttribute("disabled", "true");
-    // }
+    prevButton.removeAttribute("disabled");
   }
+  console.log(startIndex);
+  console.log(endIndex);
 });
 
 function placeData() {
@@ -284,7 +285,7 @@ function placeData() {
   buttonContainer.appendChild(nextButton);
   buttonContainer.appendChild(lastButton);
   document.body.appendChild(buttonContainer);
+  console.log(box.length);
 }
 
 fetchPokeData();
-console.log(box);
