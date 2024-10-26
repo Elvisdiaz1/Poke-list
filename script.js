@@ -1,5 +1,5 @@
 const box = [];
-const removedPokemon = [];
+let removedPokemon = [];
 const buttonContainer = document.getElementById("buttonContainer");
 let prevButton = document.createElement("button");
 prevButton.classList.add("button");
@@ -52,30 +52,25 @@ const clearPokemonData = () => {
 };
 
 prevButton.addEventListener("click", function () {
-  // startIndex = endIndex - 1;
-  // endIndex = startIndex - 44;
-  // if (endIndex <= 1 && startIndex >= 45) {
-  //   prevButton.setAttribute("disabled", "true"); // Disable the "Remove Pokemon" button
-  // }
-  fetchPokeData(startIndex, endIndex);
-  box.length = 0;
-  startIndex = endIndex - 1;
-  endIndex = startIndex - 44;
-
-  const startRemoveIndex = box.length - 45;
-  const endRemoveIndex = box.length;
-  const removedSet = box.splice(startIndex, 45);
-  removedPokemon.push(...removedSet);
-
-  console.log(box);
-  console.log("This is the removed set" + removedSet);
-
-  placeData();
+  if (removedPokemon.length > 0) {
+    const previousSet = removedPokemon.pop();
+    box.length = 0;
+    box.push(...previousSet);
+    placeData();
+  }
+  if (removedPokemon.length === 0) {
+    prevButton.setAttribute("disabled", "true");
+  }
 });
 
 nextButton.addEventListener("click", async function () {
-  await fetchPokeData(startIndex, endIndex);
+  if (box.length > 0) {
+    removedPokemon.push([...box]);
+  }
+
   box.length = 0;
+  await fetchPokeData(startIndex, endIndex);
+
   startIndex = endIndex + 1;
   endIndex = startIndex + 44;
 
@@ -285,7 +280,7 @@ function placeData() {
   buttonContainer.appendChild(nextButton);
   buttonContainer.appendChild(lastButton);
   document.body.appendChild(buttonContainer);
-  console.log(box.length);
+  console.log(removedPokemon);
 }
 
 fetchPokeData();
