@@ -4,16 +4,13 @@ const buttonContainer = document.getElementById("buttonContainer");
 let prevButton = document.createElement("button");
 prevButton.classList.add("button");
 prevButton.setAttribute("id", "remove");
-prevButton.innerText = "Remove Pokemon";
+prevButton.innerText = "Previous Pokemon";
 let nextButton = document.createElement("button");
 nextButton.classList.add("button");
-nextButton.innerText = "Add Pokemon";
+nextButton.innerText = "Next Pokemon";
 let firstButton = document.createElement("button");
 firstButton.classList.add("button");
-firstButton.innerText = "First Set";
-let lastButton = document.createElement("button");
-lastButton.classList.add("button");
-lastButton.innerText = "Last Set";
+
 prevButton.disabled = true;
 
 let showPokeData = async (i) => {
@@ -51,45 +48,40 @@ const clearPokemonData = () => {
   flexContainer.innerHTML = "";
 };
 
+// Previous Button
 prevButton.addEventListener("click", function () {
+  //                                                                                                                      V
+  // If there are Pokemon in the remove Pokemon array, then pop the last array of Pokemon in the array. EX: ([Array1], [Array2])
   if (removedPokemon.length > 0) {
     const previousSet = removedPokemon.pop();
     box.length = 0;
     box.push(...previousSet);
     placeData();
   }
+
+  // Toggles "Previous Button" off if there are no pokemon in the removedPokemon aray
   if (removedPokemon.length === 0) {
     prevButton.setAttribute("disabled", "true");
   }
 });
 
 nextButton.addEventListener("click", async function () {
+  // Pushes the current array of Pokemon into the removed Pokemon array. Keeps them in arrays ([0-44], [45-89])
   if (box.length > 0) {
     removedPokemon.push([...box]);
   }
 
+  // Resets the box to only showcase the current 45 Pokemon in the array on screen
   box.length = 0;
   await fetchPokeData(startIndex, endIndex);
 
+  // The first Pokemon of the box array
   startIndex = endIndex + 1;
+  // The last Pokemon of the box array
   endIndex = startIndex + 44;
-
-  // Toggles "Previous Button" off if Pokemon ID:1 is in the array
-  const hasPokemonID1 = box.some((pokemon) => pokemon.id === 1);
-  if (hasPokemonID1) {
-    prevButton.setAttribute("disabled", "true"); // Disable the "Remove Pokemon" button
-  } else {
-    prevButton.removeAttribute("disabled");
-  }
-  console.log(startIndex);
-  console.log(endIndex);
 });
 
 function placeData() {
-  // Need to find a way to only place one copy of each pokemon without
-  // having to do document.body.innerHTML for efficieny
-  // because the console still places dupes of the pokemon
-
   clearPokemonData();
   box.forEach((pokemon) => {
     const card = document.createElement("div");
@@ -275,12 +267,26 @@ function placeData() {
   });
 
   document.body.appendChild(flexContainer);
-  buttonContainer.appendChild(firstButton);
+
   buttonContainer.appendChild(prevButton);
   buttonContainer.appendChild(nextButton);
-  buttonContainer.appendChild(lastButton);
+
   document.body.appendChild(buttonContainer);
   console.log(removedPokemon);
 }
 
 fetchPokeData();
+
+// Tasks
+// VERSION 1
+// Update the screen to load at the same time or cover it up with an animation
+// Fix the fighting type logo and solo pokemon empty box. Prevent it from reoccuring
+// Remove first set and last set buttons
+// VERSION 2
+// Add buttons to filter out pokemon by legendaries and regions and types
+// Add button to put shiny variants on
+// VERSION 3
+// Add a search bar to filter certain pokemon by id or name
+// VERSION 4
+// Potentially add a button to put back sprites on the cards
+// Potentially add more functionality to the card by giving them more info when user clicks on them
