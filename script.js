@@ -140,10 +140,15 @@ function placeData() {
       } else if (typing2[0].includes("ghost")) {
         type2.src = "assets/ghost-type.png";
       } else if (typing2[0].includes("dragon")) {
-        type2.style.backgroundColor = "#7038f8";
-      } else type2.src = "assets/fairy-type.png";
+        type2.src = "assets/dragon-type.png";
+      } else if (typing2[0].includes("fairy")) {
+        type2.src = "assets/fairy-type.png";
+      } else type2.src = "assets/electric-type.png";
       //   CHANGE THE SINGLE TYPING FROM HTML TO IMAGE
-    } else typing = types[0].split(" ");
+    } else {
+      typing = types[0].split(" ");
+      type2.style.visibility = "hidden";
+    }
     type1.innerHTML = typing[0];
 
     if (typing[0].includes("grass")) {
@@ -177,9 +182,10 @@ function placeData() {
     } else if (typing[0].includes("rock")) {
       type1.src = "./assets/rock-type.png";
     } else if (typing[0].includes("dragon")) {
-      type1.style.backgroundColor = "#7038f8";
-    } else type1.src = "./assets/fairy-type.png";
-
+      type1.src = "assets/dragon-type.png";
+    } else if (typing[0].includes("fairy")) {
+      type1.src = "assets/fairy-type.png";
+    } else type1.src = "assets/electric-type.png";
     let type1Color;
     if (typing[0].includes("grass")) {
       type1Color = "#78c850";
@@ -213,7 +219,9 @@ function placeData() {
       type1Color = "#B8A038";
     } else if (typing[0].includes("dragon")) {
       type1Color = "#7038f8";
-    } else type1Color = "#f0b6bc";
+    } else if (typing[0].includes("fairy")) {
+      type1Color = "#f0b6bc";
+    } else type1Color = "#fac000";
 
     let type2Color;
     if (typing2[0].includes("grass")) {
@@ -248,7 +256,9 @@ function placeData() {
       type1Color = "#B8A038";
     } else if (typing2[0].includes("dragon")) {
       type2Color = "#7038f8";
-    } else type2Color = "#f0b6bc";
+    } else if (typing2[0].includes("fairy")) {
+      type2Color = "#f0b6bc";
+    } else type2Color = "#fac000";
 
     if (types.length > 1) {
       card.style.backgroundImage = `linear-gradient(90deg, ${type1Color} 50%, ${type2Color} 50%)`;
