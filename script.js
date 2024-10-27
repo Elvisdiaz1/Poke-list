@@ -8,8 +8,6 @@ prevButton.innerText = "Previous Pokemon";
 let nextButton = document.createElement("button");
 nextButton.classList.add("button");
 nextButton.innerText = "Next Pokemon";
-let firstButton = document.createElement("button");
-firstButton.classList.add("button");
 
 prevButton.disabled = true;
 
@@ -69,6 +67,7 @@ nextButton.addEventListener("click", async function () {
   // Pushes the current array of Pokemon into the removed Pokemon array. Keeps them in arrays ([0-44], [45-89])
   if (box.length > 0) {
     removedPokemon.push([...box]);
+    prevButton.disabled = false;
   }
 
   // Resets the box to only showcase the current 45 Pokemon in the array on screen
