@@ -11,17 +11,23 @@ nextButton.innerText = "Next Pokemon";
 
 prevButton.disabled = true;
 
+let currentPage = 0;
+let maxPage = 45;
+
 let showPokeData = async (i) => {
   const api = `https://pokeapi.co/api/v2/pokemon/${i}`;
   try {
     const res = await fetch(api);
+      if(!res.ok){
+         throw new Error(`Failed to fetch Pokémon with ID ${i}: ${res.status}`);
+      }
     const data = await res.json();
     console.log(data);
     box.push(data);
     console.log(box);
     placeData();
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 };
 
@@ -57,6 +63,11 @@ prevButton.addEventListener("click", function () {
     placeData();
   }
 
+  if (currentPage > 0) {
+    currentPage--;
+    showPokeData(); // fetch + render
+  }
+
   // Toggles "Previous Button" off if there are no pokemon in the removedPokemon aray
   if (removedPokemon.length === 0) {
     prevButton.setAttribute("disabled", "true");
@@ -68,6 +79,11 @@ nextButton.addEventListener("click", async function () {
   if (box.length > 0) {
     removedPokemon.push([...box]);
     prevButton.disabled = false;
+  }
+
+  if (currentPage < maxPage) {
+    currentPage++;
+    showPokeData(); // fetch + render
   }
 
   // Resets the box to only showcase the current 45 Pokemon in the array on screen
