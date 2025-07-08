@@ -11,89 +11,132 @@ nextButton.innerText = "Next Pokemon";
 
 prevButton.disabled = true;
 
-let currentPage = 0;
-let maxPage = 45;
+let currentPage = 0; //Current page. Ex: page 1, page 2,...
+let maxPokemon = 45; // Max Pokemon to be seen on the page
+let totalPokemon = 0 // Total Pokemon in the api
 
-let showPokeData = async (i) => {
-  const api = `https://pokeapi.co/api/v2/pokemon/${i}`;
-  try {
-    const res = await fetch(api);
-      if(!res.ok){
-         throw new Error(`Failed to fetch Pokémon with ID ${i}: ${res.status}`);
-      }
-    const data = await res.json();
-    console.log(data);
-    box.push(data);
-    console.log(box);
-    placeData();
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+// let showPokeData = async (i) => {
+//   const api = `https://pokeapi.co/api/v2/pokemon/${i}`;
+//   try {
+//     const res = await fetch(api);
+//       if(!res.ok){
+//          throw new Error(`Failed to fetch Pokémon with ID ${i}: ${res.status}`);
+//       }
+//     const data = await res.json();
+//     console.log(data);
+//     box.push(data);
+//     console.log(box);
+//     placeData();
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
-const fetchPokeData = async (startIndex, endIndex) => {
-  for (let index = startIndex; index <= endIndex; index++) {
-    await showPokeData(index);
-  }
-};
+// const fetchPokeData = async (startIndex, endIndex) => {
+//   for (let index = startIndex; index <= endIndex; index++) {
+//     await showPokeData(index);
+//   }
+// };
 
-const initalStartIndex = 1;
-const initalEndIndex = initalStartIndex + 44;
+// const initalStartIndex = 1;
+// const initalEndIndex = initalStartIndex + 44;
 
-let startIndex = initalEndIndex + 1;
-let endIndex = startIndex + 44;
+// let startIndex = initalEndIndex + 1;
+// let endIndex = startIndex + 44;
 
-fetchPokeData(initalStartIndex, initalEndIndex);
+// fetchPokeData(initalStartIndex, initalEndIndex);
 
 console.log(box);
 
+async function getTotalPokemon(){
+  const api ='https://pokeapi.co/api/v2/pokemon'
+  const res = await fetch(api)
+  const data = await res.json()
+  totalPokemon = await data.count
+}
+
+// fetchPokemonPage to paginate pokemon to 45 per page
+async function fetchPokemonPage(page) {
+  const offset = page * maxPokemon
+  const apiUrl = `https://pokeapi.co/api/v2/pokemon/?limit=${maxPokemon}&offset=${offset}`
+
+  const res = await fetch(apiUrl);
+  const data = await res.json();
+  return data.results
+}
+
+// Getting pokemon names and info from the api url
+async function fetchPokemonDetails(results){
+  const promise = results.map(pokemon => fetch(pokemon.url).then(res => res.json()))
+  const pokeData = await Promise.all(promise)
+  return pokeData
+}
+
+// Empty the page to showcase a different set of 45 pokemon
 const clearPokemonData = () => {
   const flexContainer = document.getElementById("flexContainer");
   flexContainer.innerHTML = "";
 };
 
+async function loadPage(page) {
+  clearPokemonData()
+  const results = await fetchPokemonPage(page)
+  const pokeDetails = await fetchPokemonDetails(results)
+
+  box.length = 0 
+  box.push(...pokeDetails)
+  placeData()
+
+// Activating or disabling buttons
+  prevButton.disabled = page === 0
+  nextButton.disabled = (page + 1) * maxPokemon >= totalPokemon;
+}
+
 // Previous Button
 prevButton.addEventListener("click", function () {
   //                                                                                                                      V
-  // If there are Pokemon in the remove Pokemon array, then pop the last array of Pokemon in the array. EX: ([Array1], [Array2])
-  if (removedPokemon.length > 0) {
-    const previousSet = removedPokemon.pop();
-    box.length = 0;
-    box.push(...previousSet);
-    placeData();
-  }
+  // // If there are Pokemon in the remove Pokemon array, then pop the last array of Pokemon in the array. EX: ([Array1], [Array2])
+  // if (removedPokemon.length > 0) {
+  //   const previousSet = removedPokemon.pop();
+  //   box.length = 0;
+  //   box.push(...previousSet);
+  //   placeData();
+  // }
 
   if (currentPage > 0) {
     currentPage--;
-    showPokeData(); // fetch + render
+    loadPage(currentPage); // fetch + render
   }
 
-  // Toggles "Previous Button" off if there are no pokemon in the removedPokemon aray
-  if (removedPokemon.length === 0) {
-    prevButton.setAttribute("disabled", "true");
-  }
-});
+//   // Toggles "Previous Button" off if there are no pokemon in the removedPokemon aray
+//   if (removedPokemon.length === 0) {
+//     prevButton.setAttribute("disabled", "true");
+//   }
+ });
 
 nextButton.addEventListener("click", async function () {
   // Pushes the current array of Pokemon into the removed Pokemon array. Keeps them in arrays ([0-44], [45-89])
-  if (box.length > 0) {
-    removedPokemon.push([...box]);
-    prevButton.disabled = false;
-  }
+  // if (box.length > 0) {
+  //   removedPokemon.push([...box]);
+  //   prevButton.disabled = false;
+  // }
 
-  if (currentPage < maxPage) {
-    currentPage++;
-    showPokeData(); // fetch + render
-  }
+  // if (currentPage < maxPage) {
+  //   currentPage++;
+  //   showPokeData(); // fetch + render
+  // }
 
-  // Resets the box to only showcase the current 45 Pokemon in the array on screen
-  box.length = 0;
-  await fetchPokeData(startIndex, endIndex);
+  // // Resets the box to only showcase the current 45 Pokemon in the array on screen
+  // box.length = 0;
+  // await fetchPokeData(startIndex, endIndex);
 
-  // The first Pokemon of the box array
-  startIndex = endIndex + 1;
-  // The last Pokemon of the box array
-  endIndex = startIndex + 44;
+  // // The first Pokemon of the box array
+  // startIndex = endIndex + 1;
+  // // The last Pokemon of the box array
+  // endIndex = startIndex + 44;
+
+  currentPage ++
+  loadPage(currentPage)
 });
 
 function placeData() {
@@ -300,14 +343,18 @@ function placeData() {
   console.log(removedPokemon);
 }
 
-fetchPokeData();
+// Initalize the site
+getTotalPokemon().then(() => {
+  loadPage(currentPage);
+});
 
 // Tasks
 // VERSION 1
-// Update the screen to load at the same time or cover it up with an animation
 // Fix the fighting type logo and solo pokemon empty box. Prevent it from reoccuring
 // Remove first set and last set buttons
 // VERSION 2
+// Optimize the typing functionality
+// Update the screen to load at the same time or cover it up with an animation
 // Add buttons to filter out pokemon by legendaries and regions and types
 // Add button to put shiny variants on
 // VERSION 3
