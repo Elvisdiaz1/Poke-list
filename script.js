@@ -15,36 +15,6 @@ let currentPage = 0; //Current page. Ex: page 1, page 2,...
 let maxPokemon = 45; // Max Pokemon to be seen on the page
 let totalPokemon = 0 // Total Pokemon in the api
 
-// let showPokeData = async (i) => {
-//   const api = `https://pokeapi.co/api/v2/pokemon/${i}`;
-//   try {
-//     const res = await fetch(api);
-//       if(!res.ok){
-//          throw new Error(`Failed to fetch Pokémon with ID ${i}: ${res.status}`);
-//       }
-//     const data = await res.json();
-//     console.log(data);
-//     box.push(data);
-//     console.log(box);
-//     placeData();
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// };
-
-// const fetchPokeData = async (startIndex, endIndex) => {
-//   for (let index = startIndex; index <= endIndex; index++) {
-//     await showPokeData(index);
-//   }
-// };
-
-// const initalStartIndex = 1;
-// const initalEndIndex = initalStartIndex + 44;
-
-// let startIndex = initalEndIndex + 1;
-// let endIndex = startIndex + 44;
-
-// fetchPokeData(initalStartIndex, initalEndIndex);
 
 console.log(box);
 
@@ -94,47 +64,18 @@ async function loadPage(page) {
 
 // Previous Button
 prevButton.addEventListener("click", function () {
-  //                                                                                                                      V
-  // // If there are Pokemon in the remove Pokemon array, then pop the last array of Pokemon in the array. EX: ([Array1], [Array2])
-  // if (removedPokemon.length > 0) {
-  //   const previousSet = removedPokemon.pop();
-  //   box.length = 0;
-  //   box.push(...previousSet);
-  //   placeData();
-  // }
+  
 
   if (currentPage > 0) {
     currentPage--;
     loadPage(currentPage); // fetch + render
   }
 
-//   // Toggles "Previous Button" off if there are no pokemon in the removedPokemon aray
-//   if (removedPokemon.length === 0) {
-//     prevButton.setAttribute("disabled", "true");
-//   }
+
  });
 
 nextButton.addEventListener("click", async function () {
-  // Pushes the current array of Pokemon into the removed Pokemon array. Keeps them in arrays ([0-44], [45-89])
-  // if (box.length > 0) {
-  //   removedPokemon.push([...box]);
-  //   prevButton.disabled = false;
-  // }
-
-  // if (currentPage < maxPage) {
-  //   currentPage++;
-  //   showPokeData(); // fetch + render
-  // }
-
-  // // Resets the box to only showcase the current 45 Pokemon in the array on screen
-  // box.length = 0;
-  // await fetchPokeData(startIndex, endIndex);
-
-  // // The first Pokemon of the box array
-  // startIndex = endIndex + 1;
-  // // The last Pokemon of the box array
-  // endIndex = startIndex + 44;
-
+ 
   currentPage ++
   loadPage(currentPage)
 });
