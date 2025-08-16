@@ -1,5 +1,6 @@
 const box = [];
-let removedPokemon = [];
+
+let allPokemonNamesAndIds = []
 const buttonContainer = document.getElementById("buttonContainer");
 let prevButton = document.createElement("button");
 prevButton.classList.add("button");
@@ -18,12 +19,7 @@ let totalPokemon = 0 // Total Pokemon in the api
 
 console.log(box);
 
-async function getTotalPokemon(){
-  const api ='https://pokeapi.co/api/v2/pokemon'
-  const res = await fetch(api)
-  const data = await res.json()
-  totalPokemon = await data.count
-}
+
 
 // fetchPokemonPage to paginate pokemon to 45 per page
 async function fetchPokemonPage(page) {
@@ -32,6 +28,8 @@ async function fetchPokemonPage(page) {
 
   const res = await fetch(apiUrl);
   const data = await res.json();
+  // Get the total Pokemon amount
+  totalPokemon = await data.count
   return data.results
 }
 
@@ -281,14 +279,12 @@ function placeData() {
   buttonContainer.appendChild(nextButton);
 
   document.body.appendChild(buttonContainer);
-  console.log(removedPokemon);
+ 
 }
 
 // Initalize the site
-getTotalPokemon().then(() => {
-  loadPage(currentPage);
-});
 
+loadPage(currentPage)
 // Tasks
 // VERSION 1
 // Fix the fighting type logo and solo pokemon empty box. Prevent it from reoccuring
