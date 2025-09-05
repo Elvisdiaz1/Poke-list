@@ -9,6 +9,8 @@ prevButton.innerText = "Previous Pokemon";
 let nextButton = document.createElement("button");
 nextButton.classList.add("button");
 nextButton.innerText = "Next Pokemon";
+const searchButton = document.getElementById("searchButton")
+const searchbar = document.getElementById("searchbar")
 
 prevButton.disabled = true;
 
@@ -30,6 +32,7 @@ async function fetchPokemonPage(page) {
   const data = await res.json();
   // Get the total Pokemon amount
   totalPokemon = await data.count
+ 
   return data.results
 }
 
@@ -53,6 +56,19 @@ async function loadPage(page) {
 
   box.length = 0 
   box.push(...pokeDetails)
+
+  
+  searchButton.addEventListener('click', function(){
+     allPokemonNamesAndIds = box.map(pokemon => pokemon.name)
+     console.log(allPokemonNamesAndIds)
+    if(searchbar.includes(`ivysaur`)) {
+      clearPokemonData()
+      placeData()
+
+    } else( console.log('Sorry'))
+  }
+  )
+  
   placeData()
 
 // Activating or disabling buttons
