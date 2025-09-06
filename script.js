@@ -1,6 +1,6 @@
 const box = [];
 
-let allPokemonNamesAndIds = []
+
 const buttonContainer = document.getElementById("buttonContainer");
 let prevButton = document.createElement("button");
 prevButton.classList.add("button");
@@ -11,6 +11,7 @@ nextButton.classList.add("button");
 nextButton.innerText = "Next Pokemon";
 const searchButton = document.getElementById("searchButton")
 const searchbar = document.getElementById("searchbar")
+let searchQuery = ""
 
 prevButton.disabled = true;
 
@@ -58,23 +59,33 @@ async function loadPage(page) {
   box.push(...pokeDetails)
 
   
-  searchButton.addEventListener('click', function(){
-     allPokemonNamesAndIds = box.map(pokemon => pokemon.name)
-     console.log(allPokemonNamesAndIds)
-    if(searchbar.includes(`ivysaur`)) {
-      clearPokemonData()
-      placeData()
 
-    } else( console.log('Sorry'))
-  }
-  )
   
   placeData()
+
+  
 
 // Activating or disabling buttons
   prevButton.disabled = page === 0
   nextButton.disabled = (page + 1) * maxPokemon >= totalPokemon;
 }
+
+// Search Bar function
+  searchButton.addEventListener('click', function(){
+    
+     let searchQuery = searchbar.value.toLowerCase().trim()
+
+    //  Searches through the box to find pokemon and turn it into the searchQuery
+     let specificPokemon = box.filter((pokemon) => pokemon.name.toLowerCase().includes(searchQuery))
+    if(specificPokemon.length > 0) {
+      
+      console.log("Found pokemon")
+      clearPokemonData()
+      placeData(specificPokemon)
+
+    } else( console.log('Sorry'))
+  }
+  )
 
 // Previous Button
 prevButton.addEventListener("click", function () {
@@ -94,9 +105,11 @@ nextButton.addEventListener("click", async function () {
   loadPage(currentPage)
 });
 
-function placeData() {
+// Places Pokemon Info on page. If there is no search input, pokemonArray becomes the box. 
+// If there is a search input, Input will become pokemonArray
+function placeData(pokemonArray = box) {
   clearPokemonData();
-  box.forEach((pokemon) => {
+  pokemonArray.forEach((pokemon) => {
     const card = document.createElement("div");
     card.classList.add("card");
     flexContainer.appendChild(card);
